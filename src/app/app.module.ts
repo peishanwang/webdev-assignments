@@ -7,7 +7,7 @@ import { LoginComponent } from './views/users/login/login.component';
 import { ProfileComponent } from './views/users/profile/profile.component';
 import { RegisterComponent } from './views/users/register/register.component';
 import { FormsModule } from '@angular/forms';
-import {routing} from './app.routing';
+import { routing } from './app.routing';
 
 
 @NgModule({
