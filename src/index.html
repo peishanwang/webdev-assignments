@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <script src = "assets/scripts/script.js"></script>
+  <!--<script src = "assets/scripts/script.js"></script>-->
   <meta charset="utf-8">
   <title>Webdev</title>
   <base href="/">
@@ -12,9 +12,14 @@
 </head>
 <body>
 
-<h1>Index Page</h1>
+<h1> Welcome! </h1>
 <input id = "message">
-<button onclick = "popuphello()"> CLICK </button>
+<button onclick = "echo()"> ECHO </button>
+<script>
+  function echo() {
+    alert($('#message').val());
+  }
+</script>
   <app-root></app-root>
 </body>
 </html>
