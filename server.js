@@ -1,7 +1,7 @@
 // Get the dependencies
 
-const express = require('express');
-const path = require('path');
+const express = require('express');//create server for us
+const path = require('path');//move around the dirs
 const http = require('http');
 const bodyParser = require('body-parser');
 const app = express();
@@ -18,12 +18,25 @@ app.use(express.static(path.join(__dirname, 'dist')));
 
 
 // CORS
+//security
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
   next();
 });
+
+
+function hello(req, res) {
+  res.send("hello from the callback function")
+}
+//request/response
+/*app.get('/', function (req, res) {
+  //console.log("hello");
+  //res.send("Hello World");
+  res.send({hello : "Hello World"});
+})*/
+app.get('/', hello)
 
 
 
@@ -46,4 +59,5 @@ app.get('*', function (req, res) {
 });
 
 
-server.listen( port , () => console.log('Running'));
+//server.listen( port , () => console.log('Running'));
+server.listen( port );

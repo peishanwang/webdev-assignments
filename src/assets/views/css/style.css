@@ -31,6 +31,10 @@ a:hover{
     color: #000000;
 }
 
+.cl-background-white{
+  background-color: white;
+}
+
 .cl-text-bold{
     font-weight: bold;
 }
