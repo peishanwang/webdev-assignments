@@ -10,10 +10,10 @@ export  class WidgetService {
     new Widget('123', 'HEADING', '321', 2, 'GIZMODO' ),
     new Widget('234', 'HEADING', '321', 4, 'Lorem ipsum' ),
     new Widget('345', 'IMAGE', '321', 1,'text', '100%', 'http://i2.cdn.cnn.com/cnnnext/dam/assets/170604130220-41-london-bridge-incident-0604-gallery-exlarge-169.jpg'),
-    new Widget('456', 'HTML', '321', 1, 'Lorem ipsum description1' ),
+    //new Widget('456', 'HTML', '321', 1, 'Lorem ipsum description1' ),
     new Widget('567', 'HEADING', '321', 4, 'Lorem ipsum' ),
     new Widget('678', 'YOUTUBE', '321', 1, 'text', '100%', 'https://www.youtube.com/embed/APexI9Zb6iE' ),
-    new Widget('789', 'HTML', '321', 1, 'Lorem ipsum description2'  ),
+    //new Widget('789', 'HTML', '321', 1, 'Lorem ipsum description1'  ),
   ];
 
 
@@ -50,7 +50,7 @@ export  class WidgetService {
     for ( const i in this.widgets ) {
       if ( this.widgets[i]._id === widgetId ) {
         switch (widget.widgetType){
-          case 'HEADER':
+          case 'HEADING':
             this.widgets[i].text = widget.text;
             this.widgets[i].size = widget.size;
             return true;
