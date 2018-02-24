@@ -59,4 +59,12 @@ export class UserService {
       }
     }
   }
+
+  isValidId(userId) {
+    for (let i = 0; i < this.users.length; i++) {
+      if (this.users[i]._id === userId) {
+        return false;
+      } else return true;
+    }
+  }
 }
