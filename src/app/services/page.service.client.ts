@@ -73,4 +73,12 @@ export class PageService {
       }
     }
   }
+
+  isValidId(pageId) {
+    for (let i = 0; i < this.pages.length; i++) {
+      if (this.pages[i]._id === pageId) {
+        return false;
+      } else return true;
+    }
+  }
 }

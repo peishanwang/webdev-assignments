@@ -81,4 +81,12 @@ export  class WidgetService {
       }
     }
   }
+
+  isValidId(widgetId) {
+    for (let i = 0; i < this.widgets.length; i++) {
+      if (this.widgets[i]._id === widgetId) {
+        return false;
+      } else return true;
+    }
+  }
 }

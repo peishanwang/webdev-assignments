@@ -74,4 +74,12 @@ export class WebsiteService {
       }
     }
   }
+
+  isValidId(websiteId) {
+    for (let i = 0; i < this.websites.length; i++) {
+      if (this.websites[i]._id === websiteId) {
+        return false;
+      } else return true;
+    }
+  }
 }
