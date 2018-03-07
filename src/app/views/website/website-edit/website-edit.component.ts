@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {WebsiteService} from '../../../services/website.service.client';
 import {Website} from '../../../models/website.model.client';
 import {ActivatedRoute} from '@angular/router';
+import {User} from "../../../models/user.model.client";
 
 @Component({
   selector: 'app-website-edit',
@@ -20,7 +21,7 @@ export class WebsiteEditComponent implements OnInit {
 
   updateWebsite(website) {
     console.log(website);
-    this.websiteService.updateWebsite(this.curWebsite._id, website);
+    this.websiteService.updateWebsite(website);
   }
 
   deleteWebsite(wid) {
@@ -29,10 +30,16 @@ export class WebsiteEditComponent implements OnInit {
 
   ngOnInit() {
     this.activateRoute.params.subscribe((params: any) => {
-      this.userId = params['uid'];
-      const preWebsite = this.websiteService.findWebsiteById(params['wid']);
-      this.curWebsite = Object.assign({}, preWebsite);
-      this.websites = this.websiteService.findWebsitesByUser(this.userId);
+      this.websiteService.findWebsiteById(params['wid']).subscribe(
+        (website: Website) => {
+          this.curWebsite = Object.assign({}, website);
+        }
+      );
+      this.websiteService.findWebsitesByUser(params['uid']).subscribe(
+        (websites) => {
+          this.websites = websites;
+        }
+      );
     });
   }
 

@@ -10,7 +10,6 @@ import {User} from '../../../models/user.model.client';
 })
 export class ProfileComponent implements OnInit {
   user: User;
-  userId: String;
   username: String;
   firstName: String;
   lastName: String;
@@ -22,21 +21,28 @@ export class ProfileComponent implements OnInit {
 
   updateUser(user) {
     console.log(user);
-    this.user = this.userService.updateUser(this.userId, user);
-    //this.router.navigate(['/user', user._id]);
+    this.route.params.subscribe(params => {
+      return this.userService.updateUser(user).subscribe(
+        (user: User) => {
+          this.user = user;
+        }
+      );
+    });
   }
 
   ngOnInit() {
     this.route.params
       .subscribe(
         (params: any) => {
-          this.userId = params['userId'];
-          const originalUser = this.userService.findUserById(params['uid']);
-          //create a copy of user
-          this.user = Object.assign({}, originalUser);
-          this.username = this.user['username'];
-          this.firstName = this.user['firstName'];
-          this.lastName = this.user['lastName'];
+          const userId = params['uid'];
+          return this.userService.findUserById(userId).subscribe(
+            (user: User) => {
+              this.user = Object.assign({}, user);
+              this.username = this.user['username'];
+              this.firstName = this.user['firstName'];
+              this.lastName = this.user['lastName'];
+            }
+          );
         }
       );
   }

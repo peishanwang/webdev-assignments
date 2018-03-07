@@ -18,18 +18,17 @@ export class WebsiteNewComponent implements OnInit {
     private activateRoute: ActivatedRoute) { }
 
   createWebsite(webName, webDes) {
-    var websiteId = '';
-    do {
-      websiteId = Math.random() + "";
-    } while (!this.websiteService.isValidId(websiteId));
-    const newWebsite = new Website(websiteId, webName, this.userId, webDes);
+    const newWebsite = new Website(undefined, webName, this.userId, webDes);
     this.websiteService.createWebsite(this.userId, newWebsite);
   }
 
   ngOnInit() {
     this.activateRoute.params.subscribe((params: any) => {
-      this.userId = params['uid'];
-      this.websites = this.websiteService.findWebsitesByUser(this.userId);
+      this.websiteService.findWebsitesByUser(params['uid']).subscribe(
+        (websites) => {
+          this.websites = websites;
+        }
+      );
     });
   }
 
