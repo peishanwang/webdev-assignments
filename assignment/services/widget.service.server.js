@@ -43,7 +43,7 @@ module.exports = function (app) {
     widget = getWidgetForWidId(widgetId);
     widget.url = '/assets/uploads/'+filename;
 
-    var callbackUrl   = "http://localhost:4200/user/" + userId + "/website/"
+    var callbackUrl   = "https://cs5610-webdev-peishanwang.herokuapp.com/user/" + userId + "/website/"
       + websiteId + '/page/' + pageId + '/widget/' + widgetId;
 
     res.redirect(callbackUrl);
