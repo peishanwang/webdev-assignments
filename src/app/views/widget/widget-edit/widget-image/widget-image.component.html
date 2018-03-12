@@ -38,7 +38,7 @@
     <input [(ngModel)]="curWidget.width" type="text" class="form-control" id="image-width" placeholder={{curWidget.width}}>
   </div>
 
-  <form ngNoForm action="{{baseUrl}}/api/upload" method="post" enctype="multipart/form-data">
+  <form ngNoForm method="post" enctype="multipart/form-data">
     <input  name="myFile"   type="file" class="form-control"/>
     <input  name="widgetId" value="{{curWidget._id}}"   style="display: none"/>
     <input  name="websiteId" value="{{websiteId}}"   style="display: none"/>
