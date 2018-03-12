@@ -10,7 +10,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Point static path to dist -- For building -- REMOVE
-app.use(express.static(path.join(__dirname, 'src')));
+app.use(express.static(path.join(__dirname, 'dist')));
 
 
 // CORS
@@ -30,15 +30,11 @@ app.set('port', port);
 // Create HTTP server
 const server = http.createServer(app);
 
-//var serverSide = require("./server/test-mongodb/app");
-//serverSide(app);
-
-
 require("./assignment/app")(app);
 
 // For Build: Catch all other routes and return the index file -- BUILDING
 app.get('*', function (req, res) {
-  res.sendFile(path.join(__dirname, 'src/index.html'));
+  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
 
 
