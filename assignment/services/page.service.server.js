@@ -8,9 +8,9 @@ module.exports = function (app) {
   app.delete("/api/page/:pageId", deletePage);
 
   var PAGES = [
-    { _id: '321', name: 'Post 1 from server', websiteId: '456', description: 'Lorem' },
-    { _id: '432', name: 'Post 2 from server', websiteId: '456', description: 'Lorem' },
-    { _id: '543', name: 'Post 3 from server', websiteId: '456', description: 'Lorem' }
+    { _id: "321", name: "Post 1 from server", websiteId: "456", title: "Lorem" },
+    { _id: "432", name: "Post 2 from server", websiteId: "456", title: "Lorem" },
+    { _id: "543", name: "Post 3 from server", websiteId: "456", title: "Lorem" }
   ];
 
   function createPage(req, res) {
@@ -38,20 +38,24 @@ module.exports = function (app) {
     var pageId = req.params['pageId'];
     var newPage = req.body;
     for (var i = 0; i < PAGES.length; i++) {
-      if (PAGES[i]._Id === pageId) {
+      //console.log("'" + pageId + "'");
+      //console.log("'" + PAGES[i]._id + "'");
+      if (PAGES[i]._id === pageId) {
         PAGES[i] = newPage;
         var websiteId = PAGES[i].websiteId;
         var pages = getPagesForWebsiteId(websiteId);
         res.json(pages);
+        //console.log("up page");
         return;
       }
+      //console.log("not found");
     }
   }
 
   function deletePage (req, res) {
     var pageId = req.params['pageId'];
     for (var i = 0; i < PAGES.length; i++) {
-      if (PAGES[i]._Id === pageId) {
+      if (PAGES[i]._id === pageId) {
         var websiteId = PAGES[i].websiteId;
         PAGES.splice(i, 1);
         var pages = getPagesForWebsiteId(websiteId);

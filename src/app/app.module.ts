@@ -18,6 +18,7 @@ import { WidgetChooserComponent } from './views/widget/widget-chooser/widget-cho
 import { WidgetListComponent } from './views/widget/widget-list/widget-list.component';
 import { HttpModule } from "@angular/http";
 import { HttpClientModule } from "@angular/common/http";
+import { QuillEditorModule } from 'ngx-quill-editor';
 import { WidgetEditComponent } from './views/widget/widget-edit/widget-edit.component';
 import { WidgetHeaderComponent } from './views/widget/widget-edit/widget-header/widget-header.component';
 import { WidgetImageComponent } from './views/widget/widget-edit/widget-image/widget-image.component';
@@ -27,6 +28,9 @@ import { UserService } from './services/user.service.client';
 import { WebsiteService } from './services/website.service.client';
 import { PageService } from './services/page.service.client';
 import { WidgetService } from './services/widget.service.client';
+import { WbdvSortableDirective } from './wbdv-sortable.directive';
+import { WidgetHtmlComponent } from './views/widget/widget-edit/widget-html/widget-html.component';
+import { WidgetTextComponent } from './views/widget/widget-edit/widget-text/widget-text.component';
 
 
 
@@ -47,14 +51,18 @@ import { WidgetService } from './services/widget.service.client';
     WidgetEditComponent,
     WidgetHeaderComponent,
     WidgetImageComponent,
-    WidgetYoutubeComponent
+    WidgetYoutubeComponent,
+    WbdvSortableDirective,
+    WidgetHtmlComponent,
+    WidgetTextComponent
   ],
   imports: [
     BrowserModule,
     routing,
     FormsModule,
     HttpModule,
-    HttpClientModule
+    HttpClientModule,
+    QuillEditorModule
   ],
   providers: [GifService, UserService, WebsiteService, PageService, WidgetService],
   bootstrap: [AppComponent]

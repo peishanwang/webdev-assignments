@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {WebsiteService} from '../../../services/website.service.client';
 import {Website} from '../../../models/website.model.client';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {User} from "../../../models/user.model.client";
 
 @Component({
@@ -17,22 +17,28 @@ export class WebsiteEditComponent implements OnInit {
 
   constructor(
     private websiteService: WebsiteService,
-    private activateRoute: ActivatedRoute) { }
+    private activateRoute: ActivatedRoute,
+    private router: Router) {}
 
-  updateWebsite(website) {
-    console.log(website);
-    this.websiteService.updateWebsite(website);
+  updateWebsite() {
+    this.websiteService.updateWebsite(this.curWebsite).subscribe(
+      (data: any) => this.router.navigate(['user/', this.userId, 'website'])
+    );
   }
 
-  deleteWebsite(wid) {
-    this.websiteService.deleteWebsite(wid);
+  deleteWebsite() {
+    this.websiteService.deleteWebsite(this.curWebsite._id).subscribe(
+      (data: any) => this.router.navigate(['user/', this.userId, 'website'])
+    );
   }
 
   ngOnInit() {
     this.activateRoute.params.subscribe((params: any) => {
+      this.userId = params['uid']
       this.websiteService.findWebsiteById(params['wid']).subscribe(
         (website: Website) => {
-          this.curWebsite = Object.assign({}, website);
+          //console.log(website);
+          this.curWebsite = website;
         }
       );
       this.websiteService.findWebsitesByUser(params['uid']).subscribe(

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {WidgetService} from '../../../../services/widget.service.client';
 import {Widget} from '../../../../models/widget.model.client';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-widget-youtube',
@@ -13,17 +13,30 @@ export class WidgetYoutubeComponent implements OnInit {
   userId: String;
   websiteId: String;
   curWidget: Widget;
+  widgetId: String;
 
   constructor(
     private widgetService: WidgetService,
-    private activateRoute: ActivatedRoute) { }
+    private activateRoute: ActivatedRoute,
+    private router: Router) { }
 
-  updateWidget(widget) {
-    this.widgetService.updateWidget(this.curWidget._id, widget);
+  updateWidget() {
+    this.widgetService.updateWidget(this.widgetId, this.curWidget)
+      .subscribe(
+        (data: any) => this.router
+          .navigate(['/user', this.userId, 'website', this.websiteId, 'page', this.pageId, 'widget']),
+        (error: any) => console.log(error)
+      );
+
   }
 
-  deleteWidget(wgid) {
-    this.widgetService.deleteWidget(wgid);
+  deleteWidget() {
+    this.widgetService.deleteWidget(this.widgetId)
+      .subscribe(
+        (data: any) => this.router
+          .navigate(['/user', this.userId, 'website', this.websiteId, 'page', this.pageId, 'widget']),
+        (error: any) => console.log(error)
+      );
   }
 
   ngOnInit() {
@@ -32,17 +45,26 @@ export class WidgetYoutubeComponent implements OnInit {
       this.websiteId = params['wid'];
       this.pageId = params['pid'];
       if (params['wgid'] === undefined) {
-        var widgetId = '';
-        do {
-          widgetId = Math.random() + "";
-        } while (!this.widgetService.isValidId(widgetId));
-        const widgetNew = new Widget(widgetId, 'YOUTUBE', this.pageId, undefined, '', '', '');
-        this.widgetService.createWidget(widgetId, widgetNew);
-        const preWidget = this.widgetService.findWidgetById(widgetId);
-        this.curWidget = Object.assign({}, preWidget);
+        const widgetNew = new Widget
+        (undefined, 'YOUTUBE', this.pageId, '', undefined, '', '', '');
+        this.widgetService.createWidget(this.pageId, widgetNew).subscribe(
+          (widget: Widget) => {
+            this.widgetId = widget._id;
+            //console.log(this.widgetId);
+            this.widgetService.findWidgetById(this.widgetId).subscribe(
+              (widget: Widget) => {
+                this.curWidget = widget;
+              }
+            );
+          }
+        );
       } else {
-        const preWidget = this.widgetService.findWidgetById(params['wgid']);
-        this.curWidget = Object.assign({}, preWidget);
+        this.widgetId = params['wgid'];
+        this.widgetService.findWidgetById(this.widgetId).subscribe(
+          (widget: Widget) => {
+            this.curWidget = widget;
+          }
+        );
       }
 
     });

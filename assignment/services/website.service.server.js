@@ -23,6 +23,7 @@ module.exports = function(app){
     website.developerId = userId;
     WEBSITES.push(website);
     var websites = getWebsitesForUserId(userId);
+    //console.log(websites);
     res.json(websites);
   }
 
@@ -35,7 +36,9 @@ module.exports = function(app){
 
   function findWebsiteById(req, res){
     var websiteId = req.params['websiteId'];
-    res.json(getWebsiteById(websiteId));
+    var website = getWebsiteById(websiteId);
+    //console.log(website);
+    res.json(website);
   }
 
   function updateWebsite(req, res){
@@ -79,6 +82,7 @@ module.exports = function(app){
   function getWebsiteById(websiteId){
    for(var i = 0; i < WEBSITES.length; i++) {
      if (WEBSITES[i]._id === websiteId) {
+       //console.log(WEBSITES[i]);
        return WEBSITES[i];
      }
    }

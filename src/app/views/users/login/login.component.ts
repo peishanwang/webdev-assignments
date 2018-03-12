@@ -31,15 +31,10 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['user/', user._id ]);
         },
         (error: any) => {
-          alert(this.errorMsg);
+          this.errorFlag = true;
+          //alert(this.errorMsg);
         }
       );
-
-    //github repo
-    /*login(this.username: String, this.password: String) {
-      this.userService.findUserByCredentials(this.username, this.password)
-        .subscribe((user: User) )
-    }*/
   }
 
   ngOnInit() {

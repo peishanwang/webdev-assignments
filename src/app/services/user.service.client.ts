@@ -10,21 +10,7 @@ export class UserService {
   constructor(private http: Http){}
 
   baseUrl = environment.baseUrl;
-  /*users: User[] = [
-    new User('123', 'alice', '123', 'Alice', 'Wonder' ),
-    new User('234', 'bob', 'bob', 'bob', 'Marley'),
-    new User('345', 'charlie', 'charlie', 'charlie', 'Garcie'),
-    new User('456', 'jannunzi', 'jannunzi', 'Jose', 'Annunzi')
-  ];*/
 
-  /*api = {
-    'createUser'   : this.createUser,
-    'findUserById' : this.findUserById,
-    'findUserByUsername' : this.findUserByUsername,
-    'findUserByCredentials' : this.findUserByCredentials,
-    'updateUser' : this.updateUser,
-    'deleteUser' : this.deleteUser
-  };*/
 
   createUser(user: User) {
     const url = this.baseUrl + '/api/user';
@@ -48,10 +34,10 @@ export class UserService {
   }
 
   findUserByCredentials(username, password) {
-    console.log(this.baseUrl + '/api/user?username=' + username + '&password=' + password);
+    //console.log(this.baseUrl + '/api/user?username=' + username + '&password=' + password);
     return this.http.get(this.baseUrl + '/api/user?username=' + username + '&password=' + password)
       .map((response: Response) => {
-        console.log(response.json());
+        //console.log(response.json());
         return response.json();
       });
   }

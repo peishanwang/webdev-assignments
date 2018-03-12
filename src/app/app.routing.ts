@@ -15,6 +15,8 @@ import {WidgetEditComponent} from "./views/widget/widget-edit/widget-edit.compon
 import {WidgetHeaderComponent} from "./views/widget/widget-edit/widget-header/widget-header.component";
 import {WidgetImageComponent} from "./views/widget/widget-edit/widget-image/widget-image.component";
 import {WidgetYoutubeComponent} from "./views/widget/widget-edit/widget-youtube/widget-youtube.component";
+import {WidgetHtmlComponent} from "./views/widget/widget-edit/widget-html/widget-html.component";
+import {WidgetTextComponent} from "./views/widget/widget-edit/widget-text/widget-text.component";
 
 const appRoutes: Routes = [
   //path from root
@@ -33,7 +35,9 @@ const appRoutes: Routes = [
   {path: 'user/:uid/website/:wid/page/:pid/widget/:wgid', component: WidgetEditComponent},
   {path: 'user/:uid/website/:wid/page/:pid/widget/new/header', component: WidgetHeaderComponent},
   {path: 'user/:uid/website/:wid/page/:pid/widget/new/image', component: WidgetImageComponent},
-  {path: 'user/:uid/website/:wid/page/:pid/widget/new/youtube', component: WidgetYoutubeComponent}
+  {path: 'user/:uid/website/:wid/page/:pid/widget/new/youtube', component: WidgetYoutubeComponent},
+  {path: 'user/:uid/website/:wid/page/:pid/widget/new/html', component: WidgetHtmlComponent},
+  {path: 'user/:uid/website/:wid/page/:pid/widget/new/text', component: WidgetTextComponent}
 ];
 /*
 *

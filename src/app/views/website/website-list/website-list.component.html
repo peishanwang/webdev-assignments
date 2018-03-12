@@ -14,7 +14,7 @@
   </div>
 </nav>
 
-<div class="container">
+<div class="container" *ngIf="websites">
   <ul class="list-group cl-list-group-borderless">
     <li *ngFor = "let website of websites" class="list-group-item cl-list-item-borderless">
       <!--{{website.name}}-->

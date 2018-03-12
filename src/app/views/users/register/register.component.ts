@@ -16,6 +16,7 @@ export class RegisterComponent implements OnInit {
   password: String;
   confirmPassword: String;
   errorMsg = 'Passwords are different!';
+  errorFlag = false;
 
   constructor(
     private userService: UserService,
@@ -27,24 +28,17 @@ export class RegisterComponent implements OnInit {
     this.confirmPassword = this.registerForm.value.password2;
 
     if (this.password == this.confirmPassword) {
-      const user = new User(undefined, this.username, this.password, undefined, undefined);
-      this.userService.createUser(user);
-
-      return this.userService.createUser(user).subscribe(
+      const user = new User('', this.username, this.password, '', '','');
+      this.userService.createUser(user).subscribe(
         (user: User) => {
           this.router.navigate(['user/', user._id]);
         }
       );
     } else {
-      alert(this.errorMsg);
+      this.errorFlag = true;
     }
-  }
-
-  addNewUser() {
-
   }
 
   ngOnInit() {
   }
-
 }

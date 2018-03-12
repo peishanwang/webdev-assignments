@@ -8,17 +8,10 @@ import {GifService} from '../../../services/gif.service.client';
 })
 export class WidgetChooserComponent implements OnInit {
   gifLink = null;
-  constructor(private gifService: GifService) { }
+  constructor() { }
 
   ngOnInit() {
   }
 
-  public searchGif(query: string): void {
-    this.gifService.getUrlLink(query)
-      .subscribe(data => {
-        this.gifLink = data.data.image_original_url;
-      })
-
-  }
 
 }

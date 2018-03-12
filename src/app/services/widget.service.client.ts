@@ -1,92 +1,81 @@
-
 import {Injectable} from '@angular/core';
-import { Widget } from '../models/widget.model.client';
+import {Http, Response} from '@angular/http';
+import {environment} from '../../environments/environment';
+import 'rxjs/Rx';
 
 @Injectable()
-export  class WidgetService {
 
-  // constructor(_id:String, type:String, pageId:String, size= '1', text = 'text', url = 'url', width = '100%')
-  widgets: Widget[] = [
-    new Widget('123', 'HEADING', '321', 2, 'GIZMODO' ),
-    new Widget('234', 'HEADING', '321', 4, 'Lorem ipsum' ),
-    new Widget('345', 'IMAGE', '321', 1,'text', '100%', 'http://i2.cdn.cnn.com/cnnnext/dam/assets/170604130220-41-london-bridge-incident-0604-gallery-exlarge-169.jpg'),
-    //new Widget('456', 'HTML', '321', 1, 'Lorem ipsum description1' ),
-    new Widget('567', 'HEADING', '321', 4, 'Lorem ipsum' ),
-    new Widget('678', 'YOUTUBE', '321', 1, 'text', '100%', 'https://www.youtube.com/embed/APexI9Zb6iE' ),
-    //new Widget('789', 'HTML', '321', 1, 'Lorem ipsum description1'  ),
-  ];
+export class WidgetService{
 
+  baseUrl = environment.baseUrl;
 
+  constructor(private _http : Http){}
 
-  api = {
-    'createWidget': this.createWidget,
-    'findWidgetsByPageId': this.findWidgetsByPageId,
-    'findWidgetById': this.findWidgetById,
-    'updateWidget': this.updateWidget,
-    'deleteWidget': this.deleteWidget,
-  };
-
-  createWidget(pageId, widget) {
-    this.widgets.push(widget);
+  createWidget(pageId, widget){
+    const url = this.baseUrl+'/api/page/'+pageId+'/widget';
+    return this._http.post(url, widget)
+      .map(
+        (res: Response) => {
+          const data = res.json();
+          return data;
+        });
   }
 
   findWidgetsByPageId(pageId) {
-    const resultSet = [];
-    for ( const i in this.widgets) {
-      if (this.widgets[i].pageId === pageId) {
-        resultSet.push(this.widgets[i]);
-      }
-    }
-    return resultSet;
+    const url = this.baseUrl+'/api/page/'+pageId+'/widget';
+    return this._http.get(url)
+      .map(
+        (res: Response) => {
+          const data = res.json();
+          //console.log(data);
+          return data;
+        }
+      );
   }
 
   findWidgetById(widgetId) {
-    return this.widgets.find(function (widget) {
-      return widget._id === widgetId;
-    });
+    const url = this.baseUrl+'/api/widget/'+widgetId;
+    return this._http.get(url)
+      .map(
+        (res: Response) => {
+          const data = res.json();
+          return data;
+        }
+      );
   }
 
   updateWidget(widgetId, widget) {
-    for ( const i in this.widgets ) {
-      if ( this.widgets[i]._id === widgetId ) {
-        switch (widget.widgetType){
-          case 'HEADING':
-            this.widgets[i].text = widget.text;
-            this.widgets[i].size = widget.size;
-            return true;
-
-          case 'IMAGE':
-            this.widgets[i].text = widget.text;
-            this.widgets[i].url = widget.url;
-            this.widgets[i].width = widget.width;
-            return true;
-
-          case 'YOUTUBE':
-            this.widgets[i].text = widget.text;
-            this.widgets[i].url = widget.url;
-            this.widgets[i].width = widget.width;
-            return true;
+    const url = this.baseUrl+'/api/widget/'+widgetId;
+    return this._http.put(url, widget)
+      .map(
+        (res: Response) => {
+          const data = res;
+          return data;
         }
-
-      }
-    }
-    return false;
+      );
   }
 
   deleteWidget(widgetId) {
-    for (const i in this.widgets) {
-      if (this.widgets[i]._id === widgetId) {
-        const j = +i;
-        this.widgets.splice(j, 1);
-      }
-    }
+    const url = this.baseUrl+'/api/widget/'+widgetId;
+    return this._http.delete(url)
+      .map(
+        (res: Response) => {
+          const data = res;
+          return data;
+        }
+      );
   }
 
-  isValidId(widgetId) {
-    for (let i = 0; i < this.widgets.length; i++) {
-      if (this.widgets[i]._id === widgetId) {
-        return false;
-      } else return true;
-    }
+  reorderWidgets(startIndex, endIndex, pageId) {
+
+    const url = this.baseUrl + '/api/page/' + pageId + '/widget?start=' + startIndex + '&end=' + endIndex;
+    return this._http.put(url, '')
+      .map(
+        (res: Response) => {
+          const data = res;
+          return data;
+        }
+      );
   }
+
 }

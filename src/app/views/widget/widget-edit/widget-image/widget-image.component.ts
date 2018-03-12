@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {WidgetService} from '../../../../services/widget.service.client';
 import {Widget} from '../../../../models/widget.model.client';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
+import {environment} from "../../../../../environments/environment";
 
 @Component({
   selector: 'app-widget-image',
@@ -13,17 +14,33 @@ export class WidgetImageComponent implements OnInit {
   userId: String;
   websiteId: String;
   curWidget: Widget;
+  baseUrl: String;
+  widgetId: String;
 
   constructor(
     private widgetService: WidgetService,
-    private activateRoute: ActivatedRoute) { }
-
-  updateWidget(widget) {
-    this.widgetService.updateWidget(this.curWidget._id, widget);
+    private activateRoute: ActivatedRoute,
+    private router: Router) {
+    this.baseUrl = environment.baseUrl;
   }
 
-  deleteWidget(wgid) {
-    this.widgetService.deleteWidget(wgid);
+  updateWidget() {
+    this.widgetService.updateWidget(this.widgetId, this.curWidget)
+      .subscribe(
+        (data: any) => this.router
+          .navigate(['/user', this.userId, 'website', this.websiteId, 'page', this.pageId, 'widget']),
+        (error: any) => console.log(error)
+      );
+
+  }
+
+  deleteWidget() {
+    this.widgetService.deleteWidget(this.widgetId)
+      .subscribe(
+        (data: any) => this.router
+          .navigate(['/user', this.userId, 'website', this.websiteId, 'page', this.pageId, 'widget']),
+        (error: any) => console.log(error)
+      );
   }
 
   ngOnInit() {
@@ -32,19 +49,27 @@ export class WidgetImageComponent implements OnInit {
       this.websiteId = params['wid'];
       this.pageId = params['pid'];
       if (params['wgid'] === undefined) {
-        var widgetId = '';
-        do {
-          widgetId = Math.random() + "";
-        } while (!this.widgetService.isValidId(widgetId));
-        const widgetNew = new Widget(widgetId, 'IMAGE', this.pageId, undefined, '', '', '');
-        this.widgetService.createWidget(widgetId, widgetNew);
-        const preWidget = this.widgetService.findWidgetById(widgetId);
-        this.curWidget = Object.assign({}, preWidget);
+        const widgetNew = new Widget
+        (undefined, 'IMAGE', this.pageId, '',undefined, '','','');
+        this.widgetService.createWidget(this.pageId, widgetNew).subscribe(
+          (widget: Widget) => {
+            this.widgetId = widget._id;
+            //console.log(this.widgetId);
+            this.widgetService.findWidgetById(this.widgetId).subscribe(
+              (widget : Widget) => {
+                this.curWidget = widget;
+              }
+            );
+          }
+        );
       } else {
-        const preWidget = this.widgetService.findWidgetById(params['wgid']);
-        this.curWidget = Object.assign({}, preWidget);
+        this.widgetId = params['wgid'];
+        this.widgetService.findWidgetById(this.widgetId).subscribe(
+          (widget : Widget) => {
+            this.curWidget = widget;
+          }
+        );
       }
-
     });
   }
 }

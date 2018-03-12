@@ -21,9 +21,8 @@ module.exports = function (app) {
   }
 
   function findUser(req, res){
-    console.log("find user!!!");
-    var username = req.query['username'];
-    var password = req.query['password'];
+    var username = req.query["username"];
+    var password = req.query["password"];
 
     var user = null;
 
@@ -48,7 +47,6 @@ module.exports = function (app) {
   }
 
   function updateUser(req, res){
-    console.log("update user!!!");
     var userId = req.params['userId'];
     var user = req.body;
     for(var i = 0; i < users.length; i++) {
@@ -56,6 +54,7 @@ module.exports = function (app) {
         users[i].username = user.username;
         users[i].firstName = user.firstName;
         users[i].lastName = user.lastName;
+        users[i].email = user.email;
         res.status(200).send(user);
         return;
       }

@@ -20,8 +20,8 @@
         <a class="cl-text-white navbar-brand cl-text-bold">
           Edit Websites
         </a>
-        <a routerLink=".." class="navbar-link navbar-text pull-right cl-text-white cl-icon-padding">
-          <span class="glyphicon glyphicon-ok" (click)="updateWebsite(curWebsite)"></span>
+        <a class="navbar-link navbar-text pull-right cl-text-white cl-icon-padding">
+          <span class="glyphicon glyphicon-ok" (click)="updateWebsite()"></span>
         </a>
       </div>
     </div>
@@ -29,7 +29,7 @@
 </nav>
 
 <div class="contain-fluid">
-  <div class="col-xs-4 hidden-xs">
+  <div class="col-xs-4 hidden-xs" *ngIf="websites">
     <ul class="list-group cl-list-group-borderless">
       <li *ngFor = "let website of websites" class="list-group-item cl-list-item-borderless">
         <a routerLink="../{{website._id}}"><span class="glyphicon glyphicon-cog pull-right"></span></a>
@@ -38,17 +38,16 @@
     </ul>
   </div>
 
-  <div class="col-xs-8">
+  <div class="col-xs-8" *ngIf="curWebsite">
     <div class="form-group">
       <label for="website-name">Website Name</label>
-      <input [(ngModel)]="curWebsite.name" type="text" class="form-control" id="website-name" placeholder={{curWebsite.name}}>
+      <input [(ngModel)]="curWebsite.name" type="text" class="form-control" id="website-name">
     </div>
     <div class="form-group">
       <label for="website-description">Website Description</label>
-      <textarea [(ngModel)]="curWebsite.description" id="website-description" class="form-control" rows="5"
-                placeholder={{curWebsite.description}}></textarea>
+      <textarea [(ngModel)]="curWebsite.description" id="website-description" class="form-control" rows="5"></textarea>
     </div>
-    <button routerLink=".." class="btn btn-danger btn-block" (click)="deleteWebsite(curWebsite._id)">Delete</button>
+    <button class="btn btn-danger btn-block" (click)="deleteWebsite()">Delete</button>
   </div>
 </div>
 

@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {PageService} from '../../../services/page.service.client';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {Page} from '../../../models/page.model.client';
-import {Website} from "../../../models/website.model.client";
 
 @Component({
   selector: 'app-page-new',
@@ -16,16 +15,15 @@ export class PageNewComponent implements OnInit {
 
   constructor(
     private pageService: PageService,
-    private activateRoute: ActivatedRoute) { }
+    private activateRoute: ActivatedRoute,
+    private router: Router) { }
 
   createPage(pageName, pageTitle) {
-
-    var pageId = '';
-    do {
-      pageId = Math.random() + "";
-    } while (!this.pageService.isValidId(pageId));
-    const newPage = new Page(pageId, pageName, this.websiteId, pageTitle);
-    this.pageService.createPage(this.websiteId, newPage);
+    const newPage = new Page(undefined, pageName, this.websiteId, pageTitle);
+    this.pageService.createPage(this.websiteId, newPage).subscribe(
+      (data: any) => this.router
+        .navigate(['user/', this.userId, 'website', this.websiteId, 'page'])
+    );
   }
 
   ngOnInit() {

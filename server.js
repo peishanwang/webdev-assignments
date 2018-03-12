@@ -52,6 +52,7 @@ const server = http.createServer(app);
 //serverSide(app);
 
 
+require("./assignment/app")(app);
 
 // For Build: Catch all other routes and return the index file -- BUILDING
 app.get('*', function (req, res) {
@@ -62,4 +63,4 @@ app.get('*', function (req, res) {
 //server.listen( port , () => console.log('Running'));
 server.listen( port );
 
-require("./assignment/app")(app);
+

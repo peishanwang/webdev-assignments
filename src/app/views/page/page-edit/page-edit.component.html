@@ -8,8 +8,8 @@
       </a>
     </div>
     <div class="navbar-text pull-right">
-      <a routerLink=".." class="cl-icon-padding cl-text-black">
-          <span class="glyphicon glyphicon-ok" (click)="updatePage(curPage)">
+      <a class="cl-icon-padding cl-text-black">
+          <span class="glyphicon glyphicon-ok" (click)="updatePage()">
           </span>
       </a>
     </div>
@@ -19,7 +19,7 @@
   </div>
 </nav>
 
-<div class="container">
+<div class="container" *ngIf="curPage">
   <div class="form-group">
     <label for="page-name">Name</label>
     <input [(ngModel)]="curPage.name" type="text" class="form-control" id="page-name" placeholder="Page Name">
@@ -28,7 +28,7 @@
     <label for="page-title">Title</label>
     <input [(ngModel)]="curPage.title" type="text" class="form-control" id="page-title" placeholder="Page Title">
   </div>
-  <button routerLink=".." class="btn btn-danger btn-block" (click)="deletePage(curPage._id)">Delete</button>
+  <button class="btn btn-danger btn-block" (click)="deletePage()">Delete</button>
 </div>
 
 <nav class="navbar navbar-default navbar-fixed-bottom">

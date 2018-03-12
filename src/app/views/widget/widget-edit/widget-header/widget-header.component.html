@@ -8,9 +8,8 @@
       </a>
     </div>
     <div class="navbar-text pull-right">
-      <a routerLink="/user/{{userId}}/website/{{websiteId}}/page/{{pageId}}/widget"
-         class="cl-icon-padding cl-text-black">
-          <span class="glyphicon glyphicon-ok" (click)="updateWidget(curWidget)">
+      <a class="cl-icon-padding cl-text-black">
+          <span class="glyphicon glyphicon-ok" (click)="updateWidget()">
           </span>
       </a>
     </div>
@@ -20,30 +19,20 @@
   </div>
 </nav>
 
-<div class="container">
+<div class="container" *ngIf="curWidget">
   <div class="form-group">
     <label for="heading-name">Name</label>
-    <input type="text" class="form-control" id="heading-name" placeholder="Name">
+    <input [(ngModel)]="curWidget.name" class="form-control" id="heading-name" placeholder="Name">
   </div>
   <div class="form-group">
     <label for="heading-text">Text</label>
-    <input [(ngModel)]="curWidget.text" type="text" class="form-control" id="heading-text" placeholder={{curWidget.text}}>
+    <input [(ngModel)]="curWidget.text" type="text" class="form-control" id="heading-text" placeholder="Text">
   </div>
   <div class="form-group">
     <label for="heading-size">Size</label>
-    <input [(ngModel)]="curWidget.size" type="text" class="form-control" id="heading-size" placeholder={{curWidget.size}}>
+    <input [(ngModel)]="curWidget.size" type="number" class="form-control" id="heading-size" placeholder="Size"
+           step="1" min="1" max="6">
   </div>
-  <button routerLink=".." class="btn btn-danger btn-block" (click)="deleteWidget(curWidget._id)">Delete</button>
+  <button class="btn btn-danger btn-block" (click)="deleteWidget()">Delete</button>
 </div>
-<!--
-<nav class="navbar navbar-default navbar-fixed-bottom">
-  <div class="container-fluid row">
-    <div class="pull-right navbar-text">
 
-      <a routerLink="/user/{{userId}}" class="cl-icon-padding">
-        <span class="glyphicon glyphicon-user"></span>
-      </a>
-
-    </div>
-  </div>
-</nav>-->
