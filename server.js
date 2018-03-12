@@ -9,12 +9,8 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-
-
-
 // Point static path to dist -- For building -- REMOVE
 app.use(express.static(path.join(__dirname, 'src')));
-
 
 
 // CORS
@@ -25,20 +21,6 @@ app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
   next();
 });
-
-
-function hello(req, res) {
-  res.send("hello from the callback function")
-}
-//request/response
-/*app.get('/', function (req, res) {
-  //console.log("hello");
-  //res.send("Hello World");
-  res.send({hello : "Hello World"});
-})*/
-app.get('/', hello)
-
-
 
 
 const port = process.env.PORT || '5000';
