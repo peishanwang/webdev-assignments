@@ -41,9 +41,9 @@ module.exports = function (app) {
     var mimetype      = myFile.mimetype;
 
     widget = getWidgetForWidId(widgetId);
-    widget.url = '/assets/uploads/'+filename;
+    widget.url = 'uploads/'+filename;
 
-    var callbackUrl   = "https://cs5610-webdev-peishanwang.herokuapp.com/user/" + userId + "/website/"
+    var callbackUrl   = "/user/" + userId + "/website/"
       + websiteId + '/page/' + pageId + '/widget/' + widgetId;
 
     res.redirect(callbackUrl);
@@ -126,20 +126,11 @@ module.exports = function (app) {
     var pageId = req.params['pid'];
     var startIndex = req.query['start'];
     var endIndex = req.query['end'];
-    //console.log(startIndex);
-    //console.log(endIndex);
     if (startIndex < endIndex) {
-      //console.log("call1");
       var widgets = getWidgetsForPageId(pageId);
-      //console.log(widgets[2]);
       var startItem = Object.assign({}, widgets[startIndex]);
       for (var i = parseInt(startIndex); i < endIndex; i++) {
-        //console.log(i);
-        //console.log(widgets[2]);
-        //console.log(i + 1);
-        //console.log(widgets[i + 1]);
         widgets[i] = Object.assign({}, widgets[i + 1]);
-        //console.log(widgets[i]);
       }
       widgets[endIndex] = Object.assign({}, startItem);
       var count = -1;
@@ -151,11 +142,7 @@ module.exports = function (app) {
           WIDGETS[i] = widgets[count];
         }
       }
-      //console.log(WIDGETS);
-      //console.log(WIDGETS.length);
-      //console.log(widgets);
     } else {
-      //console.log("call2")
       var widgets = getWidgetsForPageId(pageId);
       var startItem = Object.assign({}, widgets[startIndex]);
       for (var i = parseInt(startIndex); i > endIndex; i--) {
