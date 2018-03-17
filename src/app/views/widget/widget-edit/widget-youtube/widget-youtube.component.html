@@ -23,7 +23,7 @@
 <div class="container" *ngIf="curWidget">
   <div class="form-group">
     <label for="youtube-name">Name</label>
-    <input type="text" class="form-control" id="youtube-name" placeholder="Name">
+    <input [(ngModel)]="curWidget.name" type="text" class="form-control" id="youtube-name" placeholder="Name">
   </div>
   <div class="form-group">
     <label for="youtube-text">Text</label>
