@@ -2051,7 +2051,7 @@ $metadata.exp({ metadata: function metadata(metadataKey, metadataValue) {
 
 var g;
 
-// This works in non-strict mode
+// This works in non-strict user
 g = (function() {
 	return this;
 })();
@@ -3032,7 +3032,7 @@ Zone.__load_patch('ZoneAwarePromise', function (global, Zone, api) {
         return ZoneAwarePromise;
     }());
     // Protect against aggressive optimizers dropping seemingly unused properties.
-    // E.g. Closure Compiler in advanced mode.
+    // E.g. Closure Compiler in advanced user.
     ZoneAwarePromise['resolve'] = ZoneAwarePromise.resolve;
     ZoneAwarePromise['reject'] = ZoneAwarePromise.reject;
     ZoneAwarePromise['race'] = ZoneAwarePromise.race;
