@@ -12,14 +12,16 @@ export class WebsiteNewComponent implements OnInit {
 
   userId: String;
   websites: Website[];
+  webName: String;
+  webDes: String;
 
   constructor(
     private websiteService: WebsiteService,
     private activateRoute: ActivatedRoute,
     private router: Router) {}
 
-  createWebsite(webName, webDes) {
-    const newWebsite = new Website(undefined, webName, this.userId, webDes);
+  createWebsite() {
+    const newWebsite = new Website(undefined, this.webName, this.userId, this.webDes);
     this.websiteService.createWebsite(this.userId, newWebsite).subscribe(
       (data: any) => this.router.navigate(['user/',this.userId, 'website'])
     );

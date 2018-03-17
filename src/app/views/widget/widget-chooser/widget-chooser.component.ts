@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {GifService} from '../../../services/gif.service.client';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-widget-chooser',
@@ -7,10 +7,15 @@ import {GifService} from '../../../services/gif.service.client';
   styleUrls: ['./widget-chooser.component.css']
 })
 export class WidgetChooserComponent implements OnInit {
-  gifLink = null;
-  constructor() { }
+  userId: String;
+  constructor(
+    private activateRoute: ActivatedRoute) {}
 
   ngOnInit() {
+    this.activateRoute.params.subscribe((params: any) => {
+      this.userId = params['uid'];
+
+    });
   }
 
 

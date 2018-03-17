@@ -21,7 +21,7 @@
           New Websites
         </a>
         <a class="navbar-link navbar-text pull-right cl-text-white cl-icon-padding">
-          <span class="glyphicon glyphicon-ok" (click)="createWebsite(webName, webDes)"></span>
+          <span class="glyphicon glyphicon-ok" (click)="createWebsite()"></span>
         </a>
       </div>
     </div>
@@ -40,7 +40,7 @@
   <div class="col-xs-8">
     <div class="form-group">
       <label for="website-name">Name</label>
-      <input [(ngModel)]="webName" type="text" class="form-control" id="website-name" placeholder="Name">
+      <input [(ngModel)] ="webName" type="text" class="form-control" id="website-name" placeholder="Name">
     </div>
     <div class="form-group">
       <label for="website-description">Description</label>
