@@ -1080,10 +1080,15 @@ var LoginComponent = /** @class */ (function () {
         this.password = this.loginForm.value.password;
         this.userService.findUserByCredentials(this.username, this.password)
             .subscribe(function (user) {
-            _this.router.navigate(['user/', user._id]);
+            if (user) {
+                _this.router.navigate(['user/', user._id]);
+            }
+            else {
+                _this.errorFlag = true;
+            }
         }, function (error) {
-            _this.errorFlag = true;
-            //alert(this.errorMsg);
+            //this.errorFlag = true;
+            alert(_this.errorMsg);
         });
     };
     LoginComponent.prototype.ngOnInit = function () {
