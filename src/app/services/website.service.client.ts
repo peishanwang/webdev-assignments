@@ -27,7 +27,7 @@ export class WebsiteService {
     });
   }
 
-  updateWebsite(newWebsite: Website) {
+  updateWebsite(newWebsite) {
     const url = this.baseUrl + '/api/website/' + newWebsite._id;
     return this.http.put(url, newWebsite).map((response: Response) => {
       return response.json();

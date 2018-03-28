@@ -14,6 +14,7 @@ export class WidgetTextComponent implements OnInit {
   websiteId: String;
   widgetId: String;
   curWidget: WidgetText;
+  isNew: Boolean;
 
   constructor(
     private widgetService: WidgetService,
@@ -21,7 +22,6 @@ export class WidgetTextComponent implements OnInit {
     private router: Router) { }
 
   updateWidget() {
-    // if name field is undefined then set error 'flag' to true making 'error' and 'alert' message visible
     this.widgetService.updateWidget(this.widgetId, this.curWidget)
       .subscribe(
         (data: any) => this.router
@@ -29,6 +29,12 @@ export class WidgetTextComponent implements OnInit {
         (error: any) => console.log(error)
       );
 
+  }
+
+  back() {
+    if (this.isNew) {
+      this.deleteWidget();
+    }
   }
 
   deleteWidget() {
@@ -45,11 +51,13 @@ export class WidgetTextComponent implements OnInit {
       this.userId = params['uid'];
       this.websiteId = params['wid'];
       this.pageId = params['pid'];
+      this.isNew = false;
       if (params['wgid'] === undefined) {
+        this.isNew = true;
         const widgetNew = new WidgetText
-        (undefined, 'TEXT', this.pageId, '','', 1,'',false);
+        ( 'TEXT', this.pageId, '','', 1,'',false);
         this.widgetService.createWidget(this.pageId, widgetNew).subscribe(
-          (widget: WidgetText) => {
+          (widget) => {
             this.widgetId = widget._id;
             this.widgetService.findWidgetById(this.widgetId).subscribe(
               (widget : WidgetText) => {

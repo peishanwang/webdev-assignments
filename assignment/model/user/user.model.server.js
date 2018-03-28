@@ -1,64 +1,48 @@
+var mongoose = require("mongoose");
+var UserSchema = require("./user.schema.server");
+var UserModel = mongoose.model("UserModel", UserSchema);
 
-// this API for the database
-//encapsulate all CRUD operations in this
-//Only database operations happen here
-module.exports = function () {
+UserModel.createUser = createUser;
+UserModel.findUserById = findUserById;
+UserModel.findUserByUserName = findUserByUserName;
+UserModel.findUserByCredentials = findUserByCredentials;
+UserModel.updateUser = updateUser;
+UserModel.deleteUser = deleteUser;
 
-    var mongoose = require ("mongoose");
-    var UserSchema = require("./user.schema.server")();
-    var User =  mongoose.model("User", UserSchema); //mongo plurarizes
+//helper functions -- delete after testing
+function findAllUsers(){
+  UserModel.find(function (err, doc) {
+    console.log(docs);
+  })
+}
 
-    var api = {
-        findFacebookUser: findFacebookUser,
-        createUser: createUser,
-        findUserById: findUserById,
-        findUserByCredentials: findUserByCredentials,
-        deleteUser: deleteUser,
-        updateUser: updateUser,
-        findUserByUsername: findUserByUsername
+module.exports = UserModel;
 
-    };
-    return api;
-    //findByID returns just one
+function createUser(user){
+  return UserModel.create(user);
+}
 
-    function findFacebookUser(id) {
-        return User.findOne({"facebook.id": id});
-    }
-    function findUserById(userId) {
-        return User.findById({_id: userId});
-    }
+function findUserById(userId){
+  return UserModel.findById(userId);
+}
 
-    function findUserByUsername(username) {
-        return User.findOne({username: username});
-    }
+function findUserByUserName(username){
+  return UserModel.findOne({username: username});
+}
 
-    function updateUser(userId, user) {
-        //ignore _id
-        delete user._id;
-        return User
-            .update({_id: userId},{
-                $set: {firstName : user.firstName,
-                        lastName : user.lastName,
-                        email: user.email}}
-            );
-    }
+function findUserByCredentials(username, password){
+  return UserModel.findOne({username: username, password: password});
+}
+
+function updateUser(userId, user){
+  return UserModel.update({_id: userId}, user );
+}
+
+function deleteUser(userId) {
+  return UserModel.remove({_id: userId});
+}
 
 
-    function deleteUser(userId) {
-        return User.remove({_id: userId});
-    }
 
-    //findOne returns only One (first one for multiple results)
-    function findUserByCredentials(username, password) {
-      console.log("from MONGO")
 
-       return User.findOne({username: username, password: password});
 
-    }
-
-    function createUser(user){
-        console.log(user);
-        return  User.create(user);
-    }
-
-};

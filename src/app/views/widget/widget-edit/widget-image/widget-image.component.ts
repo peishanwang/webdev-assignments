@@ -17,13 +17,12 @@ export class WidgetImageComponent implements OnInit {
   curWidget: Widget;
   baseUrl: String;
   widgetId: String;
+  isNew: Boolean;
 
   constructor(
     private widgetService: WidgetService,
     private activateRoute: ActivatedRoute,
-    private router: Router) {
-    this.baseUrl = environment.baseUrl;
-  }
+    private router: Router) { }
 
   updateWidget() {
     this.widgetService.updateWidget(this.widgetId, this.curWidget)
@@ -33,6 +32,12 @@ export class WidgetImageComponent implements OnInit {
         (error: any) => console.log(error)
       );
 
+  }
+
+  back() {
+    if (this.isNew) {
+      this.deleteWidget();
+    }
   }
 
   deleteWidget() {
@@ -49,11 +54,13 @@ export class WidgetImageComponent implements OnInit {
       this.userId = params['uid'];
       this.websiteId = params['wid'];
       this.pageId = params['pid'];
+      this.isNew = false;
       if (params['wgid'] === undefined) {
+        this.isNew = true;
         const widgetNew = new Widget
-        (undefined, 'IMAGE', this.pageId, '',undefined, '','','');
+        ('IMAGE', this.pageId, '',undefined, '','','');
         this.widgetService.createWidget(this.pageId, widgetNew).subscribe(
-          (widget: Widget) => {
+          (widget) => {
             this.widgetId = widget._id;
             //console.log(this.widgetId);
             this.widgetService.findWidgetById(this.widgetId).subscribe(

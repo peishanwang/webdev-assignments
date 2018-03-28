@@ -1,24 +1,15 @@
-//we create a schema
+var mongoose = require("mongoose");
+var websiteSchema = require('../website/website.schema.server')
 
-module.exports = function () {
-  var mongoose = require("mongoose"); // mongoDb has no notion of schemas. this is at the application level
+var UserSchema = mongoose.Schema({
+  username: String,
+  password: String,
+  firstName:String,
+  lastName: String,
+  email: String,
+  phone: String,
+  websites:[websiteSchema],
+  dateCreated: {type: Date, default : Date.now}
+}, {collection:'user'});
 
-    var UserSchema = mongoose.Schema ({
-        username : {type: String, required: true},
-        password : String,
-        firstName : String,
-        email : String,
-        facebook : {
-            token: String,
-            id: String,
-            displayName : String
-        },
-        lastName : String,
-        dob: Date,
-        websites: [{type: mongoose.Schema.Types.ObjectId, ref: 'Website'}],
-        dateCreated : {type: Date, default : Date.now} //Date.now is the current time
-    }, {collection: "assignment.user" });
-
-    return UserSchema;
-};
-
+module.exports = UserSchema;

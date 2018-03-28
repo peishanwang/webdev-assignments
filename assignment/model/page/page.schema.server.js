@@ -1,16 +1,13 @@
-//we create a schema
+var mongoose = require("mongoose");
+var widgetSchema = require('../widget/widget.schema.server')
 
-module.exports = function () {
-  var mongoose = require("mongoose"); // mongoDb has no notion of schemas. this is at the application level
+var PageSchema = mongoose.Schema ({
+  _website : {type : mongoose.Schema.ObjectId, ref: "Website"},
+  name : {type : String, required : true},
+  title : String,
+  description: String,
+  widgets:[widgetSchema],
+  dateCreated : {type: Date, default : Date.now} //Date.now is the current time
+}, {collection:'page'});
 
-    var PageSchema = mongoose.Schema ({
-        _website : {type : mongoose.Schema.ObjectId, ref: "Website"},
-        name : {type : String, required : true},
-
-        title : String,
-          widgets:[{type: mongoose.Schema.Types.ObjectId, ref: 'Widget'}],
-        dateCreated : {type: Date, default : Date.now} //Date.now is the current time
-    }, {collection: "assignment.page" });
-
-    return PageSchema;
-};
+module.exports = PageSchema;

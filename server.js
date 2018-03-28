@@ -39,6 +39,7 @@ app.get('*', function (req, res) {
 
 
 //server.listen( port , () => console.log('Running'));
-server.listen( port );
+server.listen( port , function() {
+  console.log('Node app is running on port', app.get('port'))});
 
 

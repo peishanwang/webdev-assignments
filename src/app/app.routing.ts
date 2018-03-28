@@ -17,6 +17,7 @@ import {WidgetImageComponent} from "./views/widget/widget-edit/widget-image/widg
 import {WidgetYoutubeComponent} from "./views/widget/widget-edit/widget-youtube/widget-youtube.component";
 import {WidgetHtmlComponent} from "./views/widget/widget-edit/widget-html/widget-html.component";
 import {WidgetTextComponent} from "./views/widget/widget-edit/widget-text/widget-text.component";
+import {FlickrImageSearchComponent} from "./views/widget/widget-edit/widget-image/flickr-image-search/flickr-image-search.component";
 
 const appRoutes: Routes = [
   //path from root
@@ -37,7 +38,9 @@ const appRoutes: Routes = [
   {path: 'user/:uid/website/:wid/page/:pid/widget/new/image', component: WidgetImageComponent},
   {path: 'user/:uid/website/:wid/page/:pid/widget/new/youtube', component: WidgetYoutubeComponent},
   {path: 'user/:uid/website/:wid/page/:pid/widget/new/html', component: WidgetHtmlComponent},
-  {path: 'user/:uid/website/:wid/page/:pid/widget/new/text', component: WidgetTextComponent}
+  {path: 'user/:uid/website/:wid/page/:pid/widget/new/text', component: WidgetTextComponent},
+  {path: 'user/website/:websiteId/page/:pageId/widget/:widgetId/flickr', component: FlickrImageSearchComponent}
+
 ];
 /*
 *

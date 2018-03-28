@@ -3,7 +3,7 @@
 
     <div class="navbar-text pull-left">
       <a routerLink=".." class="cl-text-black cl-icon-padding">
-          <span class="glyphicon glyphicon-chevron-left">
+          <span class="glyphicon glyphicon-chevron-left" (click)="back()">
           </span>
       </a>
     </div>
@@ -47,6 +47,10 @@
     <button type="submit" class="btn btn-block btn-primary">Upload Image</button>
     <br/>
   </form>
+
+  <a class="btn btn-primary btn-block "
+     [routerLink]="['/user'+'/website/'+websiteId+'/page/'+pageId+'/widget/'+widgetId+'/flickr']" >Choose From Flickr</a>
+
 
   <button class="btn btn-danger btn-block" (click)="deleteWidget()">Delete</button>
 </div>

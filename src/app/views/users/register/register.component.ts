@@ -28,9 +28,9 @@ export class RegisterComponent implements OnInit {
     this.confirmPassword = this.registerForm.value.password2;
 
     if (this.password == this.confirmPassword) {
-      const user = new User('', this.username, this.password, '', '','');
+      const user = new User(this.username, this.password, '', '','');
       this.userService.createUser(user).subscribe(
-        (user: User) => {
+        (user) => {
           this.router.navigate(['user/', user._id]);
         }
       );

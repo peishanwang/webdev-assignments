@@ -10,6 +10,7 @@ import {User} from '../../../models/user.model.client';
 })
 export class ProfileComponent implements OnInit {
   user: User;
+  userId: String;
   constructor(
     private userService: UserService,
     private route: ActivatedRoute,
@@ -25,15 +26,15 @@ export class ProfileComponent implements OnInit {
   }
 
   deleteUser() {
-    this.userService.deleteUser(this.user._id).subscribe((status) => {
+    this.userService.deleteUser(this.userId).subscribe((status) => {
       this.router.navigate(['/login']);
     });
   }
 
   ngOnInit() {
     this.route.params.subscribe((params: any) => {
-          const userId = params['uid'];
-          return this.userService.findUserById(userId).subscribe(
+          this.userId = params['uid'];
+          return this.userService.findUserById(this.userId).subscribe(
             (user: User) => {
               this.user = user;
               //console.log(user);

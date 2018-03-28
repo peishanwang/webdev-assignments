@@ -14,6 +14,7 @@ export class WidgetHtmlComponent implements OnInit {
   websiteId: String;
   widgetId: String;
   curWidget: Widget;
+  isNew: Boolean;
 
   constructor(
     private widgetService: WidgetService,
@@ -30,6 +31,13 @@ export class WidgetHtmlComponent implements OnInit {
 
   }
 
+  back() {
+    if (this.isNew) {
+      console.log(this.widgetId);
+      this.deleteWidget();
+    }
+  }
+
   deleteWidget() {
     this.widgetService.deleteWidget(this.widgetId)
       .subscribe(
@@ -44,11 +52,13 @@ export class WidgetHtmlComponent implements OnInit {
       this.userId = params['uid'];
       this.websiteId = params['wid'];
       this.pageId = params['pid'];
+      this.isNew = false;
       if (params['wgid'] === undefined) {
+        this.isNew = true;
         const widgetNew = new Widget
-        (undefined, 'HTML', this.pageId, '',2, '','','');
+        ('HTML', this.pageId, '',2, '','','');
         this.widgetService.createWidget(this.pageId, widgetNew).subscribe(
-          (widget: Widget) => {
+          (widget) => {
             this.widgetId = widget._id;
             this.widgetService.findWidgetById(this.widgetId).subscribe(
               (widget : Widget) => {

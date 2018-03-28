@@ -10,6 +10,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 })
 export class PageEditComponent implements OnInit {
   userId: String;
+  pageId: String;
   websiteId: String;
   curPage: Page;
 
@@ -20,14 +21,14 @@ export class PageEditComponent implements OnInit {
 
   updatePage() {
     //console.log("updating");
-    this.pageService.updatePage(this.curPage._id, this.curPage).subscribe(
+    this.pageService.updatePage(this.pageId, this.curPage).subscribe(
       (data: any) => this.router
         .navigate(['user/', this.userId, 'website', this.websiteId, 'page'])
     );
   }
 
   deletePage() {
-    this.pageService.deletePage(this.curPage._id).subscribe(
+    this.pageService.deletePage(this.pageId).subscribe(
       (data: any) => this.router
         .navigate(['user/', this.userId, 'website', this.websiteId, 'page'])
     );

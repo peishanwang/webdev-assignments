@@ -1,6 +1,5 @@
 export class WidgetText {
-  _id: String;
-  widgetType: String;
+  type: String;
   pageId: String;
   name: String;
   text: String;
@@ -8,9 +7,8 @@ export class WidgetText {
   placeholder: String;
   formatted: Boolean;
 
-  constructor(_id, widgetType, pageId, name, text, rows, placeholder, formatted) {
-    this._id = _id;
-    this.widgetType = widgetType;
+  constructor(type, pageId, name, text, rows, placeholder, formatted) {
+    this.type = type;
     this.pageId = pageId;
     this.name = name;
     this.text = text;
