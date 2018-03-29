@@ -64,6 +64,7 @@ module.exports = function (app) {
 
   function deletePage(req,res) {
     var pageId = req.params.pageId;
+    //console.log(pageId);
     pageModel
       .deletePage(pageId)
       .then (function (status) {

@@ -28,6 +28,7 @@ export class PageEditComponent implements OnInit {
   }
 
   deletePage() {
+    //console.log(this.pageId);
     this.pageService.deletePage(this.pageId).subscribe(
       (data: any) => this.router
         .navigate(['user/', this.userId, 'website', this.websiteId, 'page'])
@@ -39,7 +40,8 @@ export class PageEditComponent implements OnInit {
     this.activateRoute.params.subscribe((params: any) => {
       this.userId = params['uid'];
       this.websiteId = params['wid'];
-      this.pageService.findPageById(params['pid']).subscribe(
+      this.pageId = params['pid'];
+      this.pageService.findPageById(this.pageId).subscribe(
         (page: Page) => {
           this.curPage = page;
         }

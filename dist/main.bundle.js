@@ -536,6 +536,7 @@ var PageService = /** @class */ (function () {
     };
     PageService.prototype.deletePage = function (pageId) {
         var url = this.baseUrl + '/api/page/' + pageId;
+        //console.log(pageId);
         return this._http.delete(url)
             .map(function (res) {
             var data = res;
@@ -865,6 +866,7 @@ var PageEditComponent = /** @class */ (function () {
     };
     PageEditComponent.prototype.deletePage = function () {
         var _this = this;
+        //console.log(this.pageId);
         this.pageService.deletePage(this.pageId).subscribe(function (data) { return _this.router
             .navigate(['user/', _this.userId, 'website', _this.websiteId, 'page']); });
     };
@@ -873,7 +875,8 @@ var PageEditComponent = /** @class */ (function () {
         this.activateRoute.params.subscribe(function (params) {
             _this.userId = params['uid'];
             _this.websiteId = params['wid'];
-            _this.pageService.findPageById(params['pid']).subscribe(function (page) {
+            _this.pageId = params['pid'];
+            _this.pageService.findPageById(_this.pageId).subscribe(function (page) {
                 _this.curPage = page;
             });
         });

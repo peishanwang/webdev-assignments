@@ -60,6 +60,7 @@ export class PageService {
 
   deletePage(pageId){
     var url = this.baseUrl + '/api/page/' +pageId;
+    //console.log(pageId);
     return this._http.delete(url)
       .map(
         (res: Response) => {
