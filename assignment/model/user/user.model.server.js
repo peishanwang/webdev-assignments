@@ -8,7 +8,7 @@ UserModel.findUserByUserName = findUserByUserName;
 UserModel.findUserByCredentials = findUserByCredentials;
 UserModel.updateUser = updateUser;
 UserModel.deleteUser = deleteUser;
-UserModel.findUserByFaceBookId = findUserByFacebookId;
+UserModel.findUserByFacebookId = findUserByFacebookId;
 
 //helper functions -- delete after testing
 function findAllUsers(){

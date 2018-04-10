@@ -30,8 +30,8 @@ module.exports = function (app) {
 
   app.get('/auth/facebook/callback',
     passport.authenticate('facebook', {
-      successRedirect: '/assignment/#/profile',
-      failureRedirect: '/assignment/#/login'
+      successRedirect: '/profile',
+      failureRedirect: '/login'
     }));
 
   function serializeUser(user, done) {
@@ -70,7 +70,7 @@ module.exports = function (app) {
   }
 
   function facebookStrategy(token, refreshToken, profile, done) {
-    model.userModel
+    userModel
       .findUserByFacebookId(profile.id)
       .then(
         function(user) {
