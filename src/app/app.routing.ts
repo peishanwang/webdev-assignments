@@ -1,5 +1,5 @@
 import {Routes, RouterModule} from '@angular/router';
-
+import {AuthGuard} from './services/auth-guard.service';
 import {LoginComponent} from './views/users/login/login.component';
 import {ProfileComponent} from './views/users/profile/profile.component';
 import {RegisterComponent} from './views/users/register/register.component';
@@ -21,43 +21,26 @@ import {FlickrImageSearchComponent} from "./views/widget/widget-edit/widget-imag
 
 const appRoutes: Routes = [
   //path from root
-  {path: '', component: LoginComponent, pathMatch: 'full'},
-  {path: 'login', component: LoginComponent},
+  {path: '', component : LoginComponent},
+  {path: 'login', component : LoginComponent},
   {path: 'register', component: RegisterComponent},
-  {path: 'user/:uid', component: ProfileComponent},
-  {path: 'user/:uid/website', component: WebsiteListComponent},
-  {path: 'user/:uid/website/new', component: WebsiteNewComponent},
-  {path: 'user/:uid/website/:wid', component: WebsiteEditComponent},
-  {path: 'user/:uid/website/:wid/page', component: PageListComponent},
-  {path: 'user/:uid/website/:wid/page/new', component: PageNewComponent},
-  {path: 'user/:uid/website/:wid/page/:pid', component: PageEditComponent},
-  {path: 'user/:uid/website/:wid/page/:pid/widget', component: WidgetListComponent},
-  {path: 'user/:uid/website/:wid/page/:pid/widget/new', component: WidgetChooserComponent},
-  {path: 'user/:uid/website/:wid/page/:pid/widget/:wgid', component: WidgetEditComponent},
-  {path: 'user/:uid/website/:wid/page/:pid/widget/new/header', component: WidgetHeaderComponent},
-  {path: 'user/:uid/website/:wid/page/:pid/widget/new/image', component: WidgetImageComponent},
-  {path: 'user/:uid/website/:wid/page/:pid/widget/new/youtube', component: WidgetYoutubeComponent},
-  {path: 'user/:uid/website/:wid/page/:pid/widget/new/html', component: WidgetHtmlComponent},
-  {path: 'user/:uid/website/:wid/page/:pid/widget/new/text', component: WidgetTextComponent},
-  {path: 'user/website/:websiteId/page/:pageId/widget/:widgetId/flickr', component: FlickrImageSearchComponent}
+  {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
+  {path: 'user/website', component: WebsiteListComponent, canActivate: [AuthGuard]},
+  {path: 'user/website/new', component: WebsiteNewComponent, canActivate: [AuthGuard]},
+  {path: 'user/website/:websiteId', component: WebsiteEditComponent, canActivate: [AuthGuard]},
+  {path: 'user/website/:websiteId/page', component: PageListComponent, canActivate: [AuthGuard]},
+  {path: 'user/website/:websiteId/page/new', component: PageNewComponent, canActivate: [AuthGuard]},
+  {path: 'user/website/:websiteId/page/:pageId', component: PageEditComponent, canActivate: [AuthGuard]},
+  {path: 'user/website/:websiteId/page/:pageId/widget', component: WidgetListComponent, canActivate: [AuthGuard]},
+  {path: 'user/website/:websiteId/page/:pageId/widget/new', component: WidgetChooserComponent, canActivate: [AuthGuard]},
+  {path: 'user/website/:websiteId/page/:pageId/widget/:widgetId', component: WidgetEditComponent, canActivate: [AuthGuard]},
+  {path: 'user/website/:websiteId/page/:pageId/widget/:widgetId/flickr', component: FlickrImageSearchComponent, canActivate: [AuthGuard]},
+  {path: 'user/website/:wid/page/:pid/widget/new/header', component: WidgetHeaderComponent, canActivate: [AuthGuard]},
+  {path: 'user/website/:wid/page/:pid/widget/new/image', component: WidgetImageComponent, canActivate: [AuthGuard]},
+  {path: 'user/website/:wid/page/:pid/widget/new/youtube', component: WidgetYoutubeComponent, canActivate: [AuthGuard]},
+  {path: 'user/website/:wid/page/:pid/widget/new/html', component: WidgetHtmlComponent, canActivate: [AuthGuard]},
+  {path: 'user/website/:wid/page/:pid/widget/new/text', component: WidgetTextComponent, canActivate: [AuthGuard]},
 
 ];
-/*
-*
-1.	login, , default							LoginComponent
-2.	register								RegisterComponent
-3.	user/:uid								ProfileComponent
-4.	user/:uid/website							WebsiteComponent
-5.	user/:uid/website/new						WebsiteNewComponent
-6.	user/:uid/website/:wid						WebsiteEditComponent
-7.	user/:uid/website/:wid/page					PageListComponent
-8.	user/:uid/website/:wid/page/new				PageNewComponent
-9.	user/:uid/website/:wid/page/:pid				PageEditComponent
-10.	user/:uid/website/:wid/page/:pid/widget			WidgetListComponent
-11.	user/:uid/website/:wid/page/:pid/widget/new		WidgetChooserComponent
-12.	user/:uid/website/:wid/page/:pid/widget/:wgid		WidgetEditComponent
-
-*
-* */
 
 export const routing = RouterModule.forRoot(appRoutes);

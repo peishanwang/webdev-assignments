@@ -29,11 +29,16 @@ export class RegisterComponent implements OnInit {
 
     if (this.password == this.confirmPassword) {
       const user = new User(this.username, this.password, '', '','');
-      this.userService.createUser(user).subscribe(
-        (user) => {
-          this.router.navigate(['user/', user._id]);
-        }
-      );
+      this.userService.register(this.username, this.password)
+        .subscribe(
+          (data: any) => {
+            this.router.navigate(['/profile']);
+          },
+          (error: any) => {
+            this.errorMsg = error._body;
+          }
+        );
+
     } else {
       this.errorFlag = true;
     }

@@ -1,8 +1,9 @@
+///<reference path="../../../../../node_modules/@angular/core/src/metadata/directives.d.ts"/>
 import {Component, OnInit, ViewChild} from '@angular/core';
 import { Router} from '@angular/router';
 import {UserService} from '../../../services/user.service.client';
-import {User} from '../../../models/user.model.client';
 import {NgForm} from '@angular/forms';
+import {SharedService} from "../../../services/shared.service";
 
 
 @Component({
@@ -20,25 +21,24 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private userService: UserService,
+    private sharedService: SharedService,
     private router: Router) { }
 
   login() {
     this.username = this.loginForm.value.username;
     this.password = this.loginForm.value.password;
-    this.userService.findUserByCredentials(this.username, this.password)
+    this.userService.login(this.username, this.password)
       .subscribe(
-        (user) => {
-          if (user) {
-            this.router.navigate(['user/', user._id ]);
-          } else {
-            this.errorFlag = true;
-          }
-        },
+        (data: any) => {
+          this.sharedService.user = data;
+          this.errorFlag = false;
+          console.log(data);
+          this.router.navigate(['/profile'])},
         (error: any) => {
-          //this.errorFlag = true;
-          alert(this.errorMsg);
+          this.errorFlag = true;
         }
       );
+
   }
 
   ngOnInit() {

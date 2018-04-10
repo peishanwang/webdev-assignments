@@ -19,7 +19,11 @@ export class FlickrImageSearchComponent implements OnInit {
   error: string;
   searchText: string;
 
-  constructor(private flickrService: FlickrService, private widgetService: WidgetService, private router: Router, private activatedRoute: ActivatedRoute, private sharedService: SharedService) { }
+  constructor(private flickrService: FlickrService,
+              private widgetService: WidgetService,
+              private router: Router,
+              private activatedRoute: ActivatedRoute,
+              private sharedService: SharedService) { }
 
   ngOnInit() {
 
@@ -74,7 +78,7 @@ export class FlickrImageSearchComponent implements OnInit {
       .subscribe(
         (data: any) => {
           const result = data;
-          if (result) { this.router.navigate(['/user/' + this.userId + '/website/' + this.websiteId + '/page/' + this.pageId + '/widget/' + this.widgetId] );
+          if (result) { this.router.navigate(['/user/website/' + this.websiteId + '/page/' + this.pageId + '/widget/' + this.widgetId] );
           } else {
             this.error = 'failed!';
           }

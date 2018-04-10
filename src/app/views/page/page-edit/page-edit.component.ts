@@ -9,7 +9,6 @@ import {ActivatedRoute, Router} from '@angular/router';
   styleUrls: ['./page-edit.component.css']
 })
 export class PageEditComponent implements OnInit {
-  userId: String;
   pageId: String;
   websiteId: String;
   curPage: Page;
@@ -23,7 +22,7 @@ export class PageEditComponent implements OnInit {
     //console.log("updating");
     this.pageService.updatePage(this.pageId, this.curPage).subscribe(
       (data: any) => this.router
-        .navigate(['user/', this.userId, 'website', this.websiteId, 'page'])
+        .navigate(['/user', '/website', this.websiteId, 'page'])
     );
   }
 
@@ -31,14 +30,13 @@ export class PageEditComponent implements OnInit {
     //console.log(this.pageId);
     this.pageService.deletePage(this.pageId).subscribe(
       (data: any) => this.router
-        .navigate(['user/', this.userId, 'website', this.websiteId, 'page'])
+        .navigate(['/user', '/website', this.websiteId, 'page'])
     );
   }
 
 
   ngOnInit() {
     this.activateRoute.params.subscribe((params: any) => {
-      this.userId = params['uid'];
       this.websiteId = params['wid'];
       this.pageId = params['pid'];
       this.pageService.findPageById(this.pageId).subscribe(

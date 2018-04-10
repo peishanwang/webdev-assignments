@@ -10,7 +10,6 @@ import {ActivatedRoute, Router} from '@angular/router';
 })
 export class WidgetYoutubeComponent implements OnInit {
   pageId: String;
-  userId: String;
   websiteId: String;
   curWidget: Widget;
   widgetId: String;
@@ -25,7 +24,7 @@ export class WidgetYoutubeComponent implements OnInit {
     this.widgetService.updateWidget(this.widgetId, this.curWidget)
       .subscribe(
         (data: any) => this.router
-          .navigate(['/user', this.userId, 'website', this.websiteId, 'page', this.pageId, 'widget']),
+          .navigate(['/user', '/website', this.websiteId, 'page', this.pageId, 'widget']),
         (error: any) => console.log(error)
       );
 
@@ -41,14 +40,13 @@ export class WidgetYoutubeComponent implements OnInit {
     this.widgetService.deleteWidget(this.widgetId)
       .subscribe(
         (data: any) => this.router
-          .navigate(['/user', this.userId, 'website', this.websiteId, 'page', this.pageId, 'widget']),
+          .navigate(['/user', '/website', this.websiteId, 'page', this.pageId, 'widget']),
         (error: any) => console.log(error)
       );
   }
 
   ngOnInit() {
     this.activateRoute.params.subscribe((params: any) => {
-      this.userId = params['uid'];
       this.websiteId = params['wid'];
       this.pageId = params['pid'];
       this.isNew = false;

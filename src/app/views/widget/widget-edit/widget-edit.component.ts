@@ -11,7 +11,6 @@ import {ActivatedRoute, Router} from '@angular/router';
 export class WidgetEditComponent implements OnInit {
   pageId: String;
   websiteId: String;
-  userId: String;
   widget: Widget;
   constructor(
     private widgetService: WidgetService,
@@ -19,7 +18,6 @@ export class WidgetEditComponent implements OnInit {
 
   ngOnInit() {
     this.activateRoute.params.subscribe((params: any) => {
-      this.userId = params['uid'];
       this.websiteId = params['wid'];
       this.widgetService.findWidgetById(params['wgid']).subscribe(
         (widget : Widget) => {

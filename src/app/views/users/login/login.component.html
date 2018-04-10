@@ -20,6 +20,11 @@
         Please enter password!
   </span>
     <button class="btn btn-primary btn-block" type="submit" [disabled]="!f.valid">Login</button>
+    <a href="/facebook/login" class="btn btn-primary btn-block">
+      <span class="fa fa-facebook"></span>
+      Facebook
+    </a>
+
     <button class="btn btn-success btn-block" type="submit"
             [routerLink]="['/register']">Register</button>
     <p style="color: darkorange">Hi! You can use username: 'jannunzi' password: 'jannunzi' to login. Then click 'websites' - 'Gizmodo' - 'Post 1' to view the widget list :)</p>

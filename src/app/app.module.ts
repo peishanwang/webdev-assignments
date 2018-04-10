@@ -35,6 +35,8 @@ import {FlickrImageSearchComponent} from "./views/widget/widget-edit/widget-imag
 import {SharedService} from "./services/shared.service";
 import {FlickrService} from "./services/flickr.service.client";
 import {OrderByPipe} from "./views/widget/widget-list/order-by-pipe.pipe";
+import {AuthGuard} from "./services/auth-guard.service";
+
 
 
 
@@ -71,7 +73,7 @@ import {OrderByPipe} from "./views/widget/widget-list/order-by-pipe.pipe";
     HttpClientModule,
     QuillEditorModule
   ],
-  providers: [GifService, UserService, WebsiteService, PageService, WidgetService, SharedService, FlickrService],
+  providers: [GifService, UserService, WebsiteService, PageService, WidgetService, AuthGuard, SharedService, FlickrService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
