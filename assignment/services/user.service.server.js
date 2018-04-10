@@ -87,7 +87,7 @@ module.exports = function (app) {
                 token: token
               }
             };
-            return model.userModel.createUser(newFacebookUser);
+            return userModel.createUser(newFacebookUser);
           }
         },
         function(err) {
