@@ -6,9 +6,9 @@ module.exports = function (app) {
   var bcrypt = require("bcrypt-nodejs");
   var FacebookStrategy = require('passport-facebook').Strategy;
   var facebookConfig = {
-    clientID     : process.env.FACEBOOK_CLIENT_ID,
-    clientSecret : process.env.FACEBOOK_CLIENT_SECRET,
-    callbackURL  : process.env.FACEBOOK_CALLBACK_URL
+    clientID     : '753617761508015',
+    clientSecret : '0c7de6e798e384c0995388977daeda26',
+    callbackURL  : 'https://cs5610-webdev-peishanwang.herokuapp.com/auth/facebook/callback'
   };
 
   app.post("/api/user", createUser);
@@ -20,14 +20,14 @@ module.exports = function (app) {
   app.post('/api/logout', logout);
   app.post ('/api/register', register);
   app.post('/api/loggedIn', loggedIn);
-  app.get ('/facebook/login', passport.authenticate('facebook', { scope : 'email' }));
+
 
   passport.serializeUser(serializeUser);
   passport.deserializeUser(deserializeUser);
   passport.use(new LocalStrategy(localStrategy));
   passport.use(new FacebookStrategy(facebookConfig, facebookStrategy));
 
-
+  app.get ('/facebook/login', passport.authenticate('facebook', { scope : 'email' }));
   app.get('/auth/facebook/callback',
     passport.authenticate('facebook', {
       successRedirect: '/profile',
@@ -70,6 +70,7 @@ module.exports = function (app) {
   }
 
   function facebookStrategy(token, refreshToken, profile, done) {
+    console.log("facebook strategy");
     userModel
       .findUserByFacebookId(profile.id)
       .then(
@@ -77,6 +78,7 @@ module.exports = function (app) {
           if(user) {
             return done(null, user);
           } else {
+            console.log("create new user to database");
             var names = profile.displayName.split(" ");
             var newFacebookUser = {
               username: 'username',

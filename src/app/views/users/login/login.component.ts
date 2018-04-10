@@ -4,6 +4,7 @@ import { Router} from '@angular/router';
 import {UserService} from '../../../services/user.service.client';
 import {NgForm} from '@angular/forms';
 import {SharedService} from "../../../services/shared.service";
+import {environment} from "../../../../environments/environment";
 
 
 @Component({
@@ -16,6 +17,7 @@ export class LoginComponent implements OnInit {
   @ViewChild('f') loginForm: NgForm;
   username: String;
   password: String;
+  baseUrl: String;
   errorFlag: boolean;
   errorMsg = 'Invalid username or password !';
 
@@ -42,6 +44,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.baseUrl = environment.baseUrl;
   }
 
 }
