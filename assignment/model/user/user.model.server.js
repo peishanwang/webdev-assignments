@@ -20,7 +20,7 @@ function findAllUsers(){
 module.exports = UserModel;
 
 function findUserByFacebookId(facebookId) {
-  return User.findOne({'facebook.id': facebookId});
+  return UserModel.findOne({'facebook.id': facebookId});
 }
 
 function createUser(user){
