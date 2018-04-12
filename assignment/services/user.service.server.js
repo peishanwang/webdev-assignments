@@ -76,24 +76,24 @@ module.exports = function (app) {
   }
 
   function facebookStrategy(token, refreshToken, profile, done) {
-    console.log("facebook strategy");
     userModel
       .findUserByFacebookId(profile.id)
       .then(
         function(user) {
           if(user) {
-            return done(null, user);
-          } else {
-            console.log("create new user to database");
+            return done(null, user);  // already in db
+          } else {    // if not, insert into db using profile info
             var names = profile.displayName.split(" ");
             var newFacebookUser = {
+              username: 'username',
+              password: 'password',
               lastName:  names[1],
               firstName: names[0],
               email:     profile.emails ? profile.emails[0].value:"",
               facebook: {
-                id:    profile.id,
+                id: profile.id,
                 token: token
-              }
+              },
             };
             return userModel.createUser(newFacebookUser);
           }
