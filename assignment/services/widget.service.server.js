@@ -11,16 +11,6 @@ module.exports = function (app) {
   app.put("/api/page/:pageId/widget", reorderWidgets);
   var widgetModel = require("../model/widget/widget.model.server");
 
-/*  var WIDGETS = [
-    { _id: '345', widgetType: 'IMAGE', pageId: '321', name: 'w1', size: 0, text: '1From server', width: '100%', url: 'https://lh4.googleusercontent.com/-1MVk_VBS0bw/VulvcbZFN5I/AAAAAAAAcBg/sT4NgOD_0tw7xcfTCBaaGOp_UzuU7k21gCL0B/w921-h615-no/Grasslands%2BMountains.jpg'},
-    { _id: '123', widgetType: 'HEADING', pageId: '321', name: 'w2', size: 2, text: '2GIZMODO From server', width: '', url: ''},
-    { _id: '234', widgetType: 'HEADING', pageId: '321', name: 'w3', size: 4, text: '3Lorem ipsum From server', width: '', url: ''},
-    { _id: '456', widgetType: 'HTML', pageId: '321', name: 'w4', size: 0, text: '<p>4Lorem ipsum From server</p>', width: '', url: ''},
-    { _id: '567', widgetType: 'HEADING', pageId: '321', name: 'w5', size: 4, text: '5Lorem ipsum', width: '', url: ''},
-    { _id: '678', widgetType: 'YOUTUBE', pageId: '321', name: 'w6', size: 0, text: '6From server', width: '100%', url: 'https://www.youtube.com/watch?v=-u5gDCNwTiw'},
-    { _id: '789', widgetType: 'HTML', pageId: '321', name: 'w7', size: 0, text: '<p>7Lorem ipsum From server</p>', width: '', url: ''},
-  ];*/
-
   function uploadImage(req, res) {
     var widgetId      = req.body.widgetId;
     var width         = req.body.width;
@@ -44,10 +34,10 @@ module.exports = function (app) {
           res.send(status);
         },
         function (err) {
-          res.sendStatus(404).send(err);
+          res.sendStatus(500).send(err);
         });
 
-    var callbackUrl   = "/user/" + userId + "/website/"
+    var callbackUrl   = "/user/website/"
       + websiteId + '/page/' + pageId + '/widget/' + widgetId;
 
     res.redirect(callbackUrl);
@@ -62,7 +52,7 @@ module.exports = function (app) {
       .then(function (status) {
         res.send(status);
       }, function (err) {
-        res.sendStatus(400).send(err);
+        res.sendStatus(500).send(err);
       });
   }
 
@@ -75,7 +65,7 @@ module.exports = function (app) {
         res.json(widget);
 
       }, function (err) {
-        res.sendStatus(400).send(err);
+        res.sendStatus(500).send(err);
       });
   }
 
@@ -88,7 +78,7 @@ module.exports = function (app) {
           res.json(widgets);
         },
         function (err) {
-          res.sendStatus(404).send(err);
+          res.sendStatus(500).send(err);
         });
   }
 
@@ -100,7 +90,7 @@ module.exports = function (app) {
           res.json(widget);
         },
         function (err) {
-          res.sendStatus(404).send(err);
+          res.sendStatus(500).send(err);
         });
   }
 
@@ -113,7 +103,7 @@ module.exports = function (app) {
           res.send(status);
         },
         function (err) {
-          res.sendStatus(404).send(err);
+          res.sendStatus(500).send(err);
         });
   }
 
@@ -125,7 +115,7 @@ module.exports = function (app) {
           res.send(status);
         },
         function (err) {
-          res.sendStatus(404).send(err);
+          res.sendStatus(500).send(err);
         });
   }
 

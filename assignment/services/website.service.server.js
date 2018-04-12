@@ -6,17 +6,6 @@ module.exports = function(app){
   app.delete("/api/website/:websiteId", deleteWebsite);
   var websiteModel = require('../model/website/website.model.server');
 
-  /*var WEBSITES = [
-      { _id : "123", name: "Facebook", developerId: "456", description: "Lorem" },
-      { _id : "234", name: "Tweeter", developerId: "456", description: "Lorem" },
-      { _id : "456", name: "Gizmodo", developerId: "456", description: "Lorem" },
-      { _id : "890", name: "Go", developerId: "123", description: "Lorem" },
-      { _id : "567", name: "Tic Tac Toe", developerId: "123", description: "Lorem" },
-      { _id : "678", name: "Checkers", developerId: "123", description: "Lorem" },
-      { _id : "789", name: "Chess", developerId: "234", description: "Lorem" }
-    ];*/
-
-
   function createWebsite(req,res) {
     var userId = req.params.userId;
     var website = req.body;
@@ -26,7 +15,7 @@ module.exports = function(app){
           res.json(website);
         },
         function (err) {
-          res.sendStatus(400).send(err);
+          res.sendStatus(500).send(err);
         });
   }
 
@@ -39,7 +28,7 @@ module.exports = function(app){
           res.json(websites);
         },
         function (err) {
-          res.sendStatus(404).send(err);
+          res.sendStatus(500).send(err);
         });
   }
 
@@ -51,7 +40,7 @@ module.exports = function(app){
           res.json(website);
         },
         function (err) {
-          res.sendStatus(404).send(err);
+          res.sendStatus(500).send(err);
         });
   }
 
@@ -64,21 +53,19 @@ module.exports = function(app){
           res.send(status);
         },
         function (err) {
-          res.sendStatus(404).send(err);
+          res.sendStatus(500).send(err);
         });
   }
 
   function deleteWebsite(req,res) {
     var websiteId = req.params.websiteId;
-
-
     websiteModel
       .deleteWebsite(websiteId)
       .then (function (status) {
           res.send(status);
         },
         function (err) {
-          res.sendStatus(404).send(err);
+          res.sendStatus(500).send(err);
         });
   }
 }

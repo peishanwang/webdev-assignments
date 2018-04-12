@@ -3,6 +3,7 @@ import {WebsiteService} from '../../../services/website.service.client';
 import {Website} from '../../../models/website.model.client';
 import {ActivatedRoute, Router} from '@angular/router';
 import {SharedService} from "../../../services/shared.service";
+import {WebsiteNewComponent} from "../website-new/website-new.component";
 
 @Component({
   selector: 'app-website-edit',
@@ -14,6 +15,8 @@ export class WebsiteEditComponent implements OnInit {
   websiteId: String;
   curWebsite: Website;
   websites: Website[];
+  errorFlag: boolean;
+  errorMsg = 'Please enter valid website name!';
 
   constructor(
     private websiteService: WebsiteService,
@@ -22,14 +25,18 @@ export class WebsiteEditComponent implements OnInit {
     private sharedService: SharedService) {}
 
   updateWebsite() {
-    this.websiteService.updateWebsite(this.curWebsite).subscribe(
-      (data: any) => this.router.navigate(['/user', '/website'])
-    );
+    if (WebsiteNewComponent.isEmpty(this.curWebsite.name)) {
+      this.errorFlag = true;
+    } else {
+      this.websiteService.updateWebsite(this.curWebsite).subscribe(
+        (data: any) => this.router.navigate(['/user/website'])
+      );
+    }
   }
 
   deleteWebsite() {
     this.websiteService.deleteWebsite(this.websiteId).subscribe(
-      (data: any) => this.router.navigate(['/user', '/website'])
+      (data: any) => this.router.navigate(['/user/website'])
     );
   }
 
@@ -37,6 +44,7 @@ export class WebsiteEditComponent implements OnInit {
     this.activateRoute.params.subscribe((params: any) => {
       this.userId = this.sharedService.user['_id'];
       this.websiteId = params['wid'];
+      //console.log(this.websiteId);
       this.websiteService.findWebsiteById(this.websiteId).subscribe(
         (website: Website) => {
           //console.log(website);

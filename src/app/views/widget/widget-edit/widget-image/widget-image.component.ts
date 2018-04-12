@@ -3,6 +3,7 @@ import {WidgetService} from '../../../../services/widget.service.client';
 import {Widget} from '../../../../models/widget.model.client';
 import {ActivatedRoute, Router} from '@angular/router';
 import {environment} from "../../../../../environments/environment";
+import {WebsiteNewComponent} from "../../../website/website-new/website-new.component";
 
 
 @Component({
@@ -17,6 +18,8 @@ export class WidgetImageComponent implements OnInit {
   baseUrl: String;
   widgetId: String;
   isNew: Boolean;
+  errorFlag: boolean;
+  errorMsg = 'Please enter valid widget name!';
 
   constructor(
     private widgetService: WidgetService,
@@ -24,26 +27,38 @@ export class WidgetImageComponent implements OnInit {
     private router: Router) { }
 
   updateWidget() {
-    this.widgetService.updateWidget(this.widgetId, this.curWidget)
-      .subscribe(
-        (data: any) => this.router
-          .navigate(['/user', '/website', this.websiteId, 'page', this.pageId, 'widget']),
-        (error: any) => console.log(error)
-      );
-
+    if (WebsiteNewComponent.isEmpty(this.curWidget.name)) {
+      this.errorFlag = true;
+    } else {
+      this.widgetService.updateWidget(this.widgetId, this.curWidget)
+        .subscribe(
+          (data: any) => this.router
+            .navigate(['/user/website', this.websiteId, 'page', this.pageId, 'widget']),
+          (error: any) => console.log(error)
+        );
+    }
   }
 
   back() {
     if (this.isNew) {
       this.deleteWidget();
+    } else {
+      this.router
+        .navigate(['/user/website', this.websiteId, 'page', this.pageId, 'widget'])
     }
   }
 
   deleteWidget() {
     this.widgetService.deleteWidget(this.widgetId)
       .subscribe(
-        (data: any) => this.router
-          .navigate(['/user', '/website', this.websiteId, 'page', this.pageId, 'widget']),
+        (data: any) => {
+          if (!this.isNew) {
+            this.router
+              .navigate(['/user/website', this.websiteId, 'page', this.pageId, 'widget'])
+          } else {
+            this.router
+              .navigate(['/user/website', this.websiteId, 'page', this.pageId, 'widget', 'new'])
+          }},
         (error: any) => console.log(error)
       );
   }

@@ -28,7 +28,6 @@ export class RegisterComponent implements OnInit {
     this.confirmPassword = this.registerForm.value.password2;
 
     if (this.password == this.confirmPassword) {
-      const user = new User(this.username, this.password, '', '','');
       this.userService.register(this.username, this.password)
         .subscribe(
           (data: any) => {
@@ -36,10 +35,12 @@ export class RegisterComponent implements OnInit {
           },
           (error: any) => {
             this.errorMsg = error._body;
+            this.errorFlag = true;
           }
         );
 
     } else {
+      this.errorMsg = 'Passwords are different!';
       this.errorFlag = true;
     }
   }

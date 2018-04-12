@@ -40,10 +40,10 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.sharedService.user);
+    //console.log(this.sharedService.user);
     this.user = this.sharedService.user;
     this.userId = this.user['_id'];
-    console.log(this.userId);
+    //console.log(this.userId);
   }
 
 }

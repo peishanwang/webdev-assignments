@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Page} from '../../../models/page.model.client';
 import {PageService} from '../../../services/page.service.client';
 import {ActivatedRoute, Router} from '@angular/router';
+import {WebsiteNewComponent} from "../../website/website-new/website-new.component";
 
 @Component({
   selector: 'app-page-edit',
@@ -12,6 +13,8 @@ export class PageEditComponent implements OnInit {
   pageId: String;
   websiteId: String;
   curPage: Page;
+  errorFlag: boolean;
+  errorMsg = 'Please enter valid page name!';
 
   constructor(
     private pageService: PageService,
@@ -19,11 +22,14 @@ export class PageEditComponent implements OnInit {
     private router: Router) { }
 
   updatePage() {
-    //console.log("updating");
-    this.pageService.updatePage(this.pageId, this.curPage).subscribe(
-      (data: any) => this.router
-        .navigate(['/user', '/website', this.websiteId, 'page'])
-    );
+    if (WebsiteNewComponent.isEmpty(this.curPage.name)) {
+      this.errorFlag = true;
+    } else {
+      this.pageService.updatePage(this.pageId, this.curPage).subscribe(
+        (data: any) => this.router
+          .navigate(['/user', '/website', this.websiteId, 'page'])
+      );
+    }
   }
 
   deletePage() {
