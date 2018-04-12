@@ -6,9 +6,12 @@ module.exports = function (app) {
   var bcrypt = require("bcrypt-nodejs");
   var FacebookStrategy = require('passport-facebook').Strategy;
   var facebookConfig = {
-    clientID     : process.env.FACEBOOK_CLIENT_ID,
+    /*clientID     : process.env.FACEBOOK_CLIENT_ID,
     clientSecret : process.env.FACEBOOK_CLIENT_SECRET,
-    callbackURL  : process.env.FACEBOOK_CALLBACK_URL
+    callbackURL  : process.env.FACEBOOK_CALLBACK_URL*/
+    clientID     : '753617761508015',
+    clientSecret : '0c7de6e798e384c0995388977daeda26',
+    callbackURL  : 'https://cs5610-webdev-peishanwang.herokuapp.com/auth/facebook/callback'
   };
 
   app.post("/api/user", createUser);
@@ -30,8 +33,8 @@ module.exports = function (app) {
   app.get ('/facebook/login', passport.authenticate('facebook', { scope : 'email' }));
   app.get('/auth/facebook/callback',
     passport.authenticate('facebook', {
-      successRedirect: '/profile',
-      failureRedirect: '/login'
+      successRedirect: 'https://cs5610-webdev-peishanwang.herokuapp.com/profile',
+      failureRedirect: 'https://cs5610-webdev-peishanwang.herokuapp.com/login'
     }));
 
   function serializeUser(user, done) {
