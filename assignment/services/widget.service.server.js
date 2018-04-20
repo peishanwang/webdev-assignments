@@ -26,7 +26,7 @@ module.exports = function (app) {
     var mimetype      = myFile.mimetype;
 
     widget = getWidgetForWidId(widgetId);
-    widget.url = '/uploads/'+filename;
+    widget.url = '/assets/uploads/'+filename;
 
     widgetModel
       .updateWidget(widgetId, widget)
