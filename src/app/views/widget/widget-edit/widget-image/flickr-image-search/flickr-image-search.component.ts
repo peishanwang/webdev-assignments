@@ -34,9 +34,9 @@ export class FlickrImageSearchComponent implements OnInit {
     this.activatedRoute.params
       .subscribe(
         (params: any) => {
-          this.websiteId = params['websiteId'];
-          this.pageId = params['pageId'];
-          this.widgetId = params['widgetId'];
+          this.websiteId = params['wid'];
+          this.pageId = params['pid'];
+          this.widgetId = params['wgid'];
         }
       );
   }
@@ -85,15 +85,6 @@ export class FlickrImageSearchComponent implements OnInit {
         }
       );
 
-
-    // .then(function (response) {
-    //   const result = response.data;
-    //   if(result){
-    //     this.router.url('/user/' + this.userId + '/website/' + this.websiteId + '/page/' + this.pageId + '/widget/' + this.widgetId);
-    //   }else{
-    //     const error = 'failed!';
-    //   }
-    // });
   }
 
 }

@@ -28,7 +28,7 @@ export class PageNewComponent implements OnInit {
       const newPage = new Page(this.pageName, this.websiteId, this.pageTitle);
       this.pageService.createPage(this.websiteId, newPage).subscribe(
         (data: any) => this.router
-          .navigate(['/user', '/website', this.websiteId, 'page'])
+          .navigate(['/user/website', this.websiteId, 'page'])
       );
     }
   }
