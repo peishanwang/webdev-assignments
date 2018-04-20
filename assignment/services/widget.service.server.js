@@ -1,6 +1,6 @@
 module.exports = function (app) {
   var multer = require('multer'); // npm install multer --save
-  var upload = multer({ dest: __dirname+'/../../src/assets/uploads' });
+  var upload = multer({ dest: __dirname + '/../../dist/assets/uploads'});
 
   app.post('/api/page/:pageId/widget', createWidget)
   app.get('/api/page/:pageId/widget', findAllWidgetsForPage);
@@ -25,22 +25,22 @@ module.exports = function (app) {
     var size          = myFile.size;
     var mimetype      = myFile.mimetype;
 
-    widget = getWidgetForWidId(widgetId);
-    widget.url = '/assets/uploads/'+filename;
+    var callbackUrl   = "/user/website/"
+      + websiteId + '/page/' + pageId + '/widget/' + widgetId;
+    if(myFile == null) {
+      res.redirect(callbackUrl);
+      return;
+    }
+    var widget = { url: "/assets/uploads/"+filename};
 
     widgetModel
       .updateWidget(widgetId, widget)
       .then(function (status) {
-          res.send(status);
+          res.redirect(callbackUrl);
         },
         function (err) {
           res.sendStatus(500).send(err);
         });
-
-    var callbackUrl   = "/user/website/"
-      + websiteId + '/page/' + pageId + '/widget/' + widgetId;
-
-    res.redirect(callbackUrl);
   }
 
   function reorderWidgets(req,res) {

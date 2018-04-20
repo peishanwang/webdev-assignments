@@ -3,6 +3,7 @@ import {Widget} from '../../../models/widget.model.client';
 import {WidgetService} from '../../../services/widget.service.client';
 import {ActivatedRoute} from '@angular/router';
 import {DomSanitizer} from '@angular/platform-browser';
+import {environment} from "../../../../environments/environment";
 
 @Component({
   selector: 'app-widget-list',
@@ -13,6 +14,7 @@ export class WidgetListComponent implements OnInit {
   pageId: String;
   webId: String;
   widgets: Widget[];
+  baseUrl: String;
 
   constructor(
     private widgetService: WidgetService,
@@ -24,6 +26,7 @@ export class WidgetListComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.baseUrl = environment.baseUrl;
     this.activateRoute.params.subscribe((params: any) => {
       this.webId = params['wid'];
       this.pageId = params['pid'];
